@@ -1,0 +1,1 @@
+# geg.kimoti_koudou_arawasu_kotoba
