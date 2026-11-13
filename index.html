@@ -232,6 +232,43 @@ h1 .b{color:var(--blue)}h1 .o{color:var(--orange)}h1 .g{color:var(--green)}
 .wlist mark{background:var(--orange-bg);color:var(--orange);border-radius:6px;padding:0 3px}
 .wlist mark.a{background:var(--green-bg);color:var(--green)}
 
+/* タブが8つになったので、文字を少し小さく */
+@media (min-width:761px){.tabs .tab{font-size:.98rem;padding:8px 6px}}
+
+/* ④ 行動と気持ち（クイズの部品を使う） */
+.lk .qtext{font-size:clamp(1.2rem,2.3vw,1.6rem)}
+.lk .qtext .cw{padding:0 4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.lk-ask{font-size:1rem;font-weight:800;color:var(--ink-soft)}
+.lk .opt{font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.5;padding:12px}
+.lkbtns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* ⑤ 気持ちのものさし */
+.lad{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;border-top:6px solid var(--c);padding:12px 18px}
+.lad .lt{font-weight:800;color:var(--c);font-size:1.2rem}
+.lad .tray{background:var(--cbg)}
+.lad .tray .chip{--c:var(--ink);font-size:clamp(1.05rem,1.8vw,1.35rem)}
+.lsteps{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;gap:14px}
+.lstep{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;min-height:0}
+.lslot{border:3px dashed var(--c);background:#fff;border-radius:16px;min-height:2.8em;padding:4px 8px;font-weight:800;
+  font-size:clamp(1.1rem,2vw,1.5rem);color:var(--c);box-shadow:0 2px 8px rgba(40,60,80,.08);transition:background .2s,transform .15s}
+.lslot.fill{border-style:solid;background:var(--cbg);color:var(--ink)}
+.lslot.fill:not(:disabled):hover{transform:translateY(-2px)}
+.lslot:disabled{cursor:default}
+.lslot.ok{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+.lslot ruby rt{font-size:.5em}
+.lbar{border-radius:12px 12px 4px 4px;background:var(--c);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;min-height:0}
+.lbar span{color:#fff;font-weight:800;font-size:.95rem}
+.lstep:nth-child(1) .lbar{height:22%;opacity:.45}
+.lstep:nth-child(2) .lbar{height:45%;opacity:.7}
+.lstep:nth-child(3) .lbar{height:70%}
+.larrow{flex:none;display:flex;align-items:center;gap:8px;font-weight:800;color:var(--c);font-size:.9rem}
+.larrow i{flex:1;height:4px;border-radius:4px;background:var(--c);position:relative}
+.larrow i::after{content:"";position:absolute;right:-2px;top:-6px;border:8px solid transparent;border-left:12px solid var(--c);border-right:0}
+.lfb{flex:none;min-height:3.2em;font-weight:700;line-height:1.6;padding:10px 16px;color:var(--ink-soft)}
+.lfb.ok{color:var(--green)}.lfb.ng{color:var(--red)}
+.lfb small{display:block;color:var(--ink);font-size:.9rem}
+@media (max-height:720px) and (min-width:761px){.lad .lt{font-size:1.05rem}.lfb{min-height:2.6em;padding:8px 14px}}
+
 /* ===== 重要語句（ひな形1・つなぐ言葉と同じつくり：12まいずつ） ===== */
 .wdocs{flex:1;display:grid;grid-template-columns:1.6fr 1fr;gap:.55rem;min-height:0}
 .wboard{position:relative;background:var(--wcard);border:1px solid var(--wline);border-radius:14px;padding:.5rem;
@@ -301,6 +338,14 @@ h1 .b{color:var(--blue)}h1 .o{color:var(--orange)}h1 .g{color:var(--green)}
   .sboxes{grid-template-columns:1fr;flex:none}
   .sbox{min-height:110px}
   .wr{grid-template-columns:1fr;flex:none}
+  .tabs{grid-template-columns:repeat(4,1fr)}
+  .tab{font-size:.8rem;padding:6px 2px}
+  #ldSeg,#lkSeg{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:18px}
+  #ldSeg button,#lkSeg button{border-radius:14px;padding:7px 6px}
+  .lk .opts{grid-template-columns:1fr}
+  .lad{flex:none}
+  .lsteps{flex:none;height:230px;gap:8px}
+  .lslot{font-size:1rem;padding:4px}
   .bar .lead{flex-basis:100%}
   .opts{gap:8px}
   .opt{padding:12px 4px}
@@ -369,8 +414,10 @@ const TABS = [
   {view:'reveal', tab:'① 気持ちを想像', sub:'ハテナとコトハ'},
   {view:'scene',  tab:'② 絵と言葉',     sub:'ぼうし・なわとび'},
   {view:'sort',   tab:'③ なかま分け',   sub:'21この言葉'},
-  {view:'quiz',   tab:'④ クイズ',       sub:'auto'},
-  {view:'write',  tab:'⑤ 文を書こう',   sub:'行動＋気持ち'},
+  {view:'link',   tab:'④ 行動と気持ち', sub:'つながりを読む'},
+  {view:'ladder', tab:'⑤ ものさし',     sub:'気持ちの強さ'},
+  {view:'quiz',   tab:'⑥ クイズ',       sub:'auto'},
+  {view:'write',  tab:'⑦ 文を書こう',   sub:'行動＋気持ち'},
   {view:'words',  tab:'重要語句',       sub:'ことばのいみ'}
 ];
 
@@ -543,7 +590,173 @@ VIEWS.sort = function(){
   $('#sReset').onclick=()=>{ sortStart(); VIEWS.sort(); };
 };
 
-/* ---- ④ quiz：えらぶクイズ ---- */
+/* ---- ④ 行動と気持ち：行動から気持ちを、気持ちから行動を考える ---- */
+const LINK = [
+  {t:'行動 → 気持ち', lead:'行動を読んで、そのときの気持ちを想像しよう。', ask:'このときの気持ちは、どれかな？', qs:[
+    {tag:'ぼうしが見つからないとき', q:'<span class="cw c-green">何度もベンチの下をのぞきこんだり、あたりを見回したりした。</span>', o:['まい上がった','ふあんになった','感しゃした'], a:1,
+     e:'<b>何度ものぞきこむ・見回す</b>という行動から、「どこにあるんだろう」と心配な気持ちが分かるね。「<b>ふあんになった</b>」。'},
+    {tag:'ぼうしが見つかったとき', q:'<span class="cw c-green">とどけてくれた女の人に、何度も頭を下げて「ありがとうございます。」と言った。</span>', o:['感しゃした','うんざりした','ゆだんした'], a:0,
+     e:'<b>頭を下げてお礼を言う</b>という行動から、ありがたいと思う気持ちが分かるね。「<b>感しゃした</b>」。'},
+    {tag:'ぼうしが見つかったとき', q:'<span class="cw c-green">ぼうしを受け取ると、むねに手を当てて、ふうっと大きく息をはいた。</span>', o:['こうふんした','あきらめた','安心した'], a:2,
+     e:'<b>ふうっと息をはく</b>のは、心配がなくなって、ほっとしたときの行動だね。「<b>安心した</b>」。'},
+    {tag:'ぼうしが見つからないとき', q:'<span class="cw c-green">「もういいや。」とつぶやいて、さがすのをやめた。</span>', o:['あきらめた','大よろこびした','ちょうせんした'], a:0,
+     e:'<b>「もういいや」と言ってやめる</b>という行動から、できないと思った気持ちが分かるね。「<b>あきらめた</b>」。'},
+    {tag:'なわとびに<ruby>成功<rt>せいこう</rt></ruby>したとき', q:'<span class="cw c-green">「やったあ！」とさけんで、両手を高く上げてとびはねた。</span>', o:['失望した','大よろこびした','ふあんになった'], a:1,
+     e:'<b>さけぶ・両手を上げる・とびはねる</b>という大きな行動から、とても強いうれしさが分かるね。「<b>大よろこびした</b>」。'},
+    {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'<span class="cw c-green">何度やっても引っかかり、「もう、いやだ。」となわをほうり出した。</span>', o:['安心した','感げきした','うんざりした'], a:2,
+     e:'<b>「もう、いやだ」・なわをほうり出す</b>という行動から、同じ失敗がつづいていやになった気持ちが分かるね。「<b>うんざりした</b>」。'},
+    {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'<span class="cw c-green">下を向いたまま、だれとも話さずに教室にもどった。</span>', o:['落ちこんだ','こうふんした','まい上がった'], a:0,
+     e:'<b>下を向く・だれとも話さない</b>という行動から、元気がなくなった気持ちが分かるね。「<b>落ちこんだ</b>」。'},
+    {tag:'なわとびに<ruby>成功<rt>せいこう</rt></ruby>したあと', q:'<span class="cw c-green">「明日もとべるかな。」と、帰り道ずっとスキップしていた。</span>', o:['気がめいっていた','心がはずんでいた','ゆううつになっていた'], a:1,
+     e:'<b>スキップする</b>という行動から、うれしくてわくわくする気持ちが分かるね。「<b>心がはずんでいた</b>」。'}
+  ]},
+  {t:'気持ち → 行動', lead:'気持ちから、そのときにしそうな行動を考えよう。', ask:'このとき、どんな行動をしたかな？', qs:[
+    {tag:'なわとびにちょうせんする前', q:'むずかしいとび方を練習しようと、<span class="cw c-orange">はりきっていた</span>。', o:['ため息をついて、すわりこんだ。','休み時間になると、いちばんに外へとび出した。','なわを見ないように、かくした。'], a:1,
+     e:'やる気いっぱいの気持ちは、<b>いちばんに外へとび出す</b>という行動に表れるね。'},
+    {tag:'ぼうしが見つからないとき', q:'ぼうしがどこにもなくて、<span class="cw c-orange">ふあんになった</span>。', o:['「やったあ！」ととびはねた。','鼻歌を歌いながら、のんびり歩いた。','あちこちをきょろきょろ見回した。'], a:2,
+     e:'心配で落ち着かない気持ちは、<b>きょろきょろ見回す</b>という行動に表れるね。'},
+    {tag:'ぼうしが見つかったとき', q:'とどけてくれた人に、<span class="cw c-orange">感しゃした</span>。', o:['「ありがとうございます。」と、深く頭を下げた。','ぷいっと横を向いた。','大きなあくびをした。'], a:0,
+     e:'ありがたいと思う気持ちは、<b>お礼を言って頭を下げる</b>という行動に表れるね。'},
+    {tag:'ぼうしが見つかったとき', q:'ぼうしが見つかって、ほっと<span class="cw c-orange">安心した</span>。', o:['こわい顔で、ぼうしをにらみつけた。','ふうっと息をはいて、にっこりした。','「もう、いやだ。」と、ぼうしをなげた。'], a:1,
+     e:'ほっとした気持ちは、<b>ふうっと息をはいて、にっこりする</b>という行動に表れるね。'},
+    {tag:'なわとびに<ruby>成功<rt>せいこう</rt></ruby>したとき', q:'とうとうとべて、気持ちが<span class="cw c-orange">まい上がった</span>。', o:['思わず、その場でぴょんぴょんとびはねた。','下を向いて、だまりこんだ。','なわをかたづけて、すぐに帰った。'], a:0,
+     e:'うれしくて、うきうきする気持ちは、<b>ぴょんぴょんとびはねる</b>という行動に表れるね。'},
+    {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'何度やってもとべなくて、<span class="cw c-orange">うんざりした</span>。', o:['にこにこしながら、手をたたいた。','友だちに「見て見て！」とかけよった。','「また、だめか……。」と、なわをほうり出した。'], a:2,
+     e:'いやになった気持ちは、<b>なわをほうり出す</b>という行動に表れるね。'},
+    {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'失敗して、すっかり<span class="cw c-orange">落ちこんだ</span>。', o:['かたを落として、とぼとぼ歩いた。','スキップしながら帰った。','大きな声で歌い出した。'], a:0,
+     e:'元気がなくなった気持ちは、<b>かたを落として、とぼとぼ歩く</b>という行動に表れるね。'}
+  ]}
+];
+let lk = {m:0, qi:[0,0], res:[[],[]], ans:false};
+VIEWS.link = function(){
+  const M = LINK[lk.m], i = lk.qi[lk.m], R = lk.res[lk.m];
+  const seg = `<div class="seg" id="lkSeg">${LINK.map((x,k)=>`<button class="${k===lk.m?'on':''}" data-m="${k}">${x.t}</button>`).join('')}</div>`;
+  if(i >= M.qs.length){
+    const n = R.filter(Boolean).length, all = M.qs.length, other = 1 - lk.m;
+    panel.innerHTML = `
+      <div class="bar">${seg}<div class="lead">${M.lead}</div></div>
+      <div class="result">
+        <div class="score">${n}<small> / ${all}もん</small></div>
+        <p>${n===all?'ぜんもんせいかい！ 行動と気持ちのつながりを、よく読みとれたね。':'まちがえた問題は、どの行動が手がかりになるか、もう一度考えてみよう。'}</p>
+        <div class="lkbtns"><button class="btn main" id="lkRetry">もう一度ちょうせん</button><button class="btn" id="lkOther">「${LINK[other].t}」をやる</button></div>
+      </div>`;
+    if(n===all){ pinpon(); setTimeout(party,150); }
+    $('#lkRetry').onclick=()=>{ lk.qi[lk.m]=0; lk.res[lk.m]=[]; VIEWS.link(); };
+    $('#lkOther').onclick=()=>{ lk.m=other; VIEWS.link(); };
+    panel.querySelectorAll('#lkSeg button').forEach(b=>b.onclick=()=>{ lk.m=+b.dataset.m; VIEWS.link(); });
+    return;
+  }
+  const q = M.qs[i];
+  panel.innerHTML = `
+    <div class="qwrap lk">
+      <div class="bar">
+        ${seg}
+        <div class="lead">${i+1} / ${M.qs.length}もん　${M.lead}</div>
+        <button class="btn" id="lkReset">もう一度</button>
+      </div>
+      <div class="dots">${M.qs.map((_,k)=>`<i class="${k<R.length?(R[k]?'ok':'ng'):(k===i?'now':'')}"></i>`).join('')}</div>
+      <div class="qcard">
+        <div class="qtag">${q.tag}</div>
+        <div class="qtext">${q.q}</div>
+        <div class="lk-ask">→ ${M.ask}</div>
+      </div>
+      <div class="opts" style="--on:${q.o.length}">${q.o.map((o,k)=>`<button class="opt ${COLORS[k%3]}" data-k="${k}">${o}</button>`).join('')}</div>
+      <div class="fb" id="lkFb"></div>
+      <div class="nextrow"><button class="btn main" id="lkNext" hidden>${i===M.qs.length-1?'けっかを見る':'つぎへ ›'}</button></div>
+    </div>`;
+  lk.ans = false;
+  panel.querySelectorAll('#lkSeg button').forEach(b=>b.onclick=()=>{ lk.m=+b.dataset.m; VIEWS.link(); });
+  $('#lkReset').onclick=()=>{ lk.qi[lk.m]=0; lk.res[lk.m]=[]; VIEWS.link(); };
+  $('#lkNext').onclick=()=>{ lk.qi[lk.m]++; VIEWS.link(); };
+  panel.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(lk.ans) return; lk.ans = true;
+    const k = +b.dataset.k, ok = k===q.a; R.push(ok);
+    panel.querySelectorAll('.opt').forEach(x=>{
+      x.disabled = true; const xk = +x.dataset.k;
+      if(xk===q.a) x.classList.add('right'); else if(x===b) x.classList.add('wrong'); else x.classList.add('dim');
+    });
+    const fb = $('#lkFb');
+    fb.innerHTML = `<div class="mark ${ok?'ok':'ng'}">${ok?'◯':'✕'}</div><div class="ex">${ok?'':'<b>正しくは「'+q.o[q.a]+'」。</b>'}${q.e}</div>`;
+    requestAnimationFrame(()=>fb.classList.add('show'));
+    ok ? pinpon() : bubu();
+    $('#lkNext').hidden = false;
+    const d = panel.querySelectorAll('.dots i')[i]; if(d) d.className = ok?'ok':'ng';
+  });
+};
+
+/* ---- ⑤ 気持ちのものさし：気持ちの強さの順にならべる ----
+   w：言葉（左から「少し」→「とても」の正しい順）　ok：正解にするならべ方（w の番号）
+   ならべ方が1つに決まらない組は、ok に2つ入れている */
+const LADDER = [
+  {t:'うれしい気持ち', c:'c-orange', w:['よろこぶ','大よろこびする','まい上がる'], ok:[[0,1,2],[0,2,1]],
+   e:'「よろこぶ」に「大」がつくと、もっと強くなるね。「まい上がる」は、うれしくて体がうき上がりそうなほどの気持ち。'},
+  {t:'心が動く気持ち', c:'c-orange', w:['いいなと思う','感心する','<ruby>感<rt>かん</rt></ruby>げきする'], ok:[[0,1,2]],
+   e:'「感心する」は「りっぱだな」と思うこと。「感げきする」は、心を強く動かされること。いちばん強いのは「感げきする」だね。'},
+  {t:'がっかりする気持ち', c:'c-blue', w:['ざんねんに思う','<ruby>失望<rt>しつぼう</rt></ruby>する','落ちこむ'], ok:[[0,1,2],[0,2,1]],
+   e:'「失望する」は、のぞみがかなわず、とてもがっかりすること。「落ちこむ」は、元気がなくなって気持ちがしずむこと。どちらも「ざんねんに思う」より強いね。'},
+  {t:'心配な気持ち', c:'c-blue', w:['気になる','ふあんになる','ゆううつになる'], ok:[[0,1,2],[0,2,1]],
+   e:'「ふあんになる」は、心配で落ち着かない気持ち。「ゆううつになる」は、心配が重くのしかかって、気持ちが暗くなること。'}
+];
+let ld = null;   /* {g:今の組, mix:[組ごとのならび], slot:[組ごとの3つのます], done:[], msg:[], mc:[]} */
+function ladderStart(){
+  ld = {g:0, mix:LADDER.map(L=>shuffle(L.w.map((_,i)=>i))), slot:LADDER.map(()=>[-1,-1,-1]),
+        done:LADDER.map(()=>false), msg:LADDER.map(()=>''), mc:LADDER.map(()=>'')};
+  ld.mix.forEach((m,g)=>{ if(m.join()===LADDER[g].w.map((_,i)=>i).join()) m.reverse(); });   /* はじめから正しいならびにしない */
+}
+VIEWS.ladder = function(){
+  if(!ld) ladderStart();
+  const g = ld.g, L = LADDER[g], sl = ld.slot[g], done = ld.done[g];
+  const tray = ld.mix[g].filter(i=>!sl.includes(i));
+  const full = sl.every(x=>x>=0);
+  const NAMES = ['少し','　','とても'];
+  panel.innerHTML = `
+    <div class="bar">
+      <div class="seg" id="ldSeg">${LADDER.map((x,k)=>`<button class="${k===g?'on':''}" data-g="${k}">${ld.done[k]?'◯ ':''}${x.t}</button>`).join('')}</div>
+      <div class="lead">言葉をおして、気持ちが「少し」から「とても」へ強くなる順にならべよう。</div>
+      <button class="btn main" id="ldCheck" ${full&&!done?'':'disabled'}>答え合わせ</button>
+      <button class="btn" id="ldReset">もう一度</button>
+    </div>
+    <div class="box lad ${L.c}">
+      <div class="lt">${L.t}</div>
+      <div class="tray">${tray.length?tray.map(i=>`<button class="chip" data-i="${i}">${L.w[i]}</button>`).join(''):`<span class="done">${done?'ならべられたね！':'「答え合わせ」をおそう。（ますの言葉をおすと、もどせるよ）'}</span>`}</div>
+      <div class="lsteps">${sl.map((x,s)=>`
+        <div class="lstep">
+          <button class="lslot ${x>=0?'fill':''} ${done?'ok':''}" data-s="${s}" ${done||x<0?'disabled':''}>${x>=0?L.w[x]:'？'}</button>
+          <div class="lbar"><span>${NAMES[s]}</span></div>
+        </div>`).join('')}
+      </div>
+      <div class="larrow" aria-hidden="true"><span>少し</span><i></i><span>とても</span></div>
+    </div>
+    <div class="box lfb ${ld.mc[g]}">${ld.msg[g]||'どちらが強いか、まよったら、自分ならどんなときに使うか考えてみよう。'}</div>`;
+  panel.querySelectorAll('#ldSeg button').forEach(b=>b.onclick=()=>{ ld.g=+b.dataset.g; VIEWS.ladder(); });
+  panel.querySelectorAll('.lad .tray .chip').forEach(b=>b.onclick=()=>{
+    const e = sl.indexOf(-1); if(e<0) return;
+    sl[e] = +b.dataset.i; ld.msg[g]=''; ld.mc[g]=''; VIEWS.ladder();
+  });
+  panel.querySelectorAll('.lslot').forEach(b=>b.onclick=()=>{
+    sl[+b.dataset.s] = -1; ld.msg[g]=''; ld.mc[g]=''; VIEWS.ladder();
+  });
+  $('#ldCheck').onclick=()=>{
+    const ok = L.ok.some(o=>o.every((v,k)=>v===sl[k]));
+    if(ok){
+      ld.done[g] = true; ld.mc[g] = 'ok';
+      ld.msg[g] = `◯ ${L.e}` + (L.ok.length>1?'<small>ほかのならべ方もできるよ。どうしてそう思ったか、友だちと話し合ってみよう。</small>':'');
+      const all = ld.done.every(Boolean);
+      if(all) ld.msg[g] += '<small>4つの組、ぜんぶならべられたね！</small>';
+      VIEWS.ladder(); pinpon();
+      if(all) setTimeout(party,200);
+    }else{
+      ld.mc[g] = 'ng';
+      ld.msg[g] = '✕ ちがうならべ方だよ。いちばん<b>弱い</b>気持ちはどれかな？ 言葉の意味を思い出して、もう一度ならべよう。';
+      ld.slot[g] = [-1,-1,-1];
+      VIEWS.ladder(); bubu();
+      panel.querySelectorAll('.lad .tray .chip').forEach(c=>c.classList.add('shake'));
+    }
+  };
+  $('#ldReset').onclick=()=>{ ladderStart(); VIEWS.ladder(); };
+};
+
+/* ---- ⑥ quiz：えらぶクイズ ---- */
 const QUIZ = {
   shuffle:false,
   qs:[
@@ -551,6 +764,8 @@ const QUIZ = {
      e:'毎日練習するという行動から、やる気いっぱいの気持ちが分かるね。だから「<b>はりきって</b>いるね」。'},
     {tag:'入賞を知ったとき（80ページ）', q:'ハテナがコトハのところへ走ってきたのは、□気持ちだったから。', o:['がっかりした','早く知らせたい','ゆううつな'], a:1,
      e:'「<b>早く知らせたくて</b>走ってきた」と書いてあるね。走るという行動から、うれしい気持ちが分かる。'},
+    {tag:'ぼうしをわすれたとき', q:'遊びにむちゅうで、ぼうしをベンチに□しまった。', o:['わすれて','よろこんで','ちょうせんして'], a:0,
+     e:'おぼえていたことが、頭からなくなってしまうことを「<b>わすれる</b>」というよ。'},
     {tag:'ぼうしをわすれたとき', q:'「ちょっとくらい大じょうぶ」と□して、ぼうしをベンチにおいてきた。', o:['ゆだん','感げき','こうふん'], a:0,
      e:'大じょうぶだと思って気をゆるめることを「<b>ゆだんする</b>」というよ。'},
     {tag:'ぼうしをわすれたとき', q:'□して、ぼうしをかぶらずに帰ってしまった。', o:['感しゃ','うっかり','こうふん'], a:1,
@@ -561,12 +776,16 @@ const QUIZ = {
      e:'してもらったことを、ありがたいと思う気持ちは「<b>感しゃする</b>」。'},
     {tag:'ぼうしが見つかったとき', q:'知らない人がわざわざとどけてくれて、心を強く動かされた。この気持ちは□。', o:['ゆだんする','あきらめる','感げきする'], a:2,
      e:'心を強く動かされることを「<b>感げきする</b>」というよ。'},
+    {tag:'ぼうしが見つかったとき', q:'ぼうしが見つかって、とび上がって□。', o:['あきらめた','よろこんだ','落ちこんだ'], a:1,
+     e:'うれしい気持ちを、とび上がるという行動で表しているね。「<b>よろこぶ</b>」。'},
     {tag:'ぼうしが見つからないとき', q:'どこをさがしてもなくて、どうしようと□。', o:['ふあんになった','まい上がった','安心した'], a:0,
      e:'どうなるか心配で落ち着かない気持ちは「<b>ふあんになる</b>」。'},
     {tag:'ぼうしが見つからないとき', q:'暗くなってきたので、ぼうしをさがすのを□。', o:['まい上がった','よろこんだ','あきらめた'], a:2,
      e:'できないと思ってやめることを「<b>あきらめる</b>」というよ。'},
     {tag:'ぼうしが見つからないとき', q:'家の人に何と言おうか考えると、気持ちが重く暗くなって□。', o:['こうふんした','ゆううつになった','よろこんだ'], a:1,
      e:'気持ちが晴れず、重く暗くなることを「<b>ゆううつになる</b>」というよ。'},
+    {tag:'なわとびにちょうせんするとき', q:'むずかしいとび方に、思い切って何回も□。', o:['ゆだんした','うんざりした','ちょうせんした'], a:2,
+     e:'むずかしいことに、思い切ってとりくむことを「<b>ちょうせんする</b>」というよ。'},
     {tag:'なわとびにちょうせんするとき', q:'むずかしいとび方にも、にげずに□。', o:['落ちこんだ','立ち向かった','安心した'], a:1,
      e:'にげずに向かっていく行動は「<b>立ち向かう</b>」。'},
     {tag:'なわとびにちょうせんするとき', q:'毎日、休み時間にとぶ練習をして□。', o:['努力した','ゆだんした','失望した'], a:0,
@@ -575,22 +794,26 @@ const QUIZ = {
      e:'うれしくて、うきうきする気持ちは「<b>まい上がる</b>」。'},
     {tag:'なわとびに<ruby>成功<rt>せいこう</rt></ruby>したとき', q:'とべたしゅんかん、気持ちが高ぶって、思わず声を上げるほど□。', o:['こうふんした','気がめいった','あきらめた'], a:0,
      e:'気持ちが高ぶって落ち着かなくなることを「<b>こうふんする</b>」というよ。'},
+    {tag:'なわとびに<ruby>成功<rt>せいこう</rt></ruby>したとき', q:'ふつうに「よろこぶ」より、もっと強くよろこぶことを「□する」という。', o:['大よろこび','安心','感しゃ'], a:0,
+     e:'「よろこぶ」に「大」がつくと、もっと強い気持ちになるね。「<b>大よろこびする</b>」。'},
     {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'あんなに練習したのにとべなくて、□。', o:['感しゃした','失望した','安心した'], a:1,
      e:'のぞんでいたことがかなわず、がっかりすることを「<b>失望する</b>」というよ。'},
     {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'何度やっても同じところで引っかかって、□。', o:['こうふんした','感げきした','うんざりした'], a:2,
      e:'同じことがつづいて、いやになる気持ちは「<b>うんざりする</b>」。'},
+    {tag:'なわとびに<ruby>失敗<rt>しっぱい</rt></ruby>したとき', q:'失敗して元気がなくなり、すっかり□。', o:['こうふんした','落ちこんだ','まい上がった'], a:1,
+     e:'元気がなくなって、気持ちがしずむことを「<b>落ちこむ</b>」というよ。'},
     {tag:'言葉のなかま', q:'うまくいったときの気持ちを表す言葉は、どれ？', o:['落ちこむ','ふあんになる','心がはずむ'], a:2,
      e:'「<b>心がはずむ</b>」は、うれしくてわくわくする気持ち。ほかの2つは、うまくいかなかったときの気持ちだね。'},
     {tag:'言葉のなかま', q:'うまくいかなかったときの気持ちを表す言葉は、どれ？', o:['気がめいる','大よろこびする','安心する'], a:0,
      e:'「<b>気がめいる</b>」は、気持ちが暗くしずんで元気が出ないこと。ほかの2つは、うまくいったときの気持ちだね。'}
   ],
-  goodAt:15,
+  goodAt:19,
   msg:{perfect:'ぜんもんせいかい！ 行動と気持ちの言葉を、よく分かっているね。',
        good:'あと少し！ ②のタブで、言葉の意味をもう一度たしかめよう。',
        low:'②のタブで言葉の意味と使い方を見てから、もう一度ちょうせんしよう。'}
 };
 
-/* ---- ⑤ 文を書こう：行動の言葉と気持ちの言葉を使って、文を書く ---- */
+/* ---- ⑦ 文を書こう：行動の言葉と気持ちの言葉を使って、文を書く ---- */
 const WR_EX = [   /* [場面][うまくいった=0／うまくいかなかった=1] の文のれい */
   ['うっかりしてベンチにぼうしをわすれたが、女の人がとどけてくれたので、ほっと安心した。',
    'ゆだんしてぼうしをおいてきたら、どこにもなくて、ふあんになった。'],
